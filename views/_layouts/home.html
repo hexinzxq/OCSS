@@ -1,0 +1,253 @@
+{{if student}}
+<!-- //这里存放登录过后公共的静态布局页面 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>网上选课系统</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"> 
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  
+  <link rel="stylesheet" href="/public/layui/css/layui.css"  media="all">
+  <!-- 这里可以放置自定义样式 -->
+  {{block 'head'}}{{/block}}
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo"><a href="/courses" class="layui-logo">网上选课系统</a></div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-left">
+      <li class="layui-nav-item"><a href="/courses" id="choiceCourse">待选课程</a></li>
+      <li class="layui-nav-item"><a href="">选课记录</a></li>
+    </ul>
+    <ul class="layui-nav layui-layout-right">
+      {{ if student }}
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="/public/img/图书.png" style="width: 30px; border-radius: 50%;">
+          欢迎你：{{student.name}}
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="">基本资料</a></dd>
+          <dd><a href="">安全中心</a></dd>
+          <dd><a href="/logout">退出</a></dd>
+        </dl>
+      </li>
+      {{ else }}
+      <li class="layui-nav-item"><a href="/login">登录</a></li>
+      <li class="layui-nav-item"><a href="/register">注册</a></li>
+      {{ /if }}
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item">
+          <a href="javascript:;">校园导航</a>
+          <dl class="layui-nav-child">
+            <dd><a href="http://www.nsu.edu.cn/">校园主页</a></dd>
+            <dd><a href="https://www.szlib.org.cn/">图书馆</a></dd>
+            <dd><a href="https://www.cnki.net/">中国知网</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">课程类别分类选课</a>
+            <dl class="layui-nav-child">
+              <dd><a href='/courses/computer'>计算机类</a></dd>
+              <dd><a href='/courses/art'>摄影艺术类</a></dd>
+              <dd><a href='/courses/sport'>体育运动类</a></dd>
+              <dd><a href='/courses/scient'>科学技术类</a></dd>
+              <dd><a href='/courses/knowledge'>百科知识类</a></dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item">
+            <a href="javascript:;">按照老师分类选课</a>
+            <dl class="layui-nav-child">
+              <dd><a href='/courses/jia'>贾老师</a></dd>
+              <dd><a href='/courses/zuo'>左老师</a></dd>
+              <dd><a href='/courses/yue'>月老师</a></dd>
+              <dd><a href='/courses/hua'>华老师</a></dd>
+              <dd><a href='/courses/shan'>山老师</a></dd>
+              <dd><a href='/courses/li'>李老师</a></dd>
+              <dd><a href='/courses/xiao'>晓老师</a></dd>
+              <dd><a href='/courses/jiang'>江老师</a></dd>
+            </dl>
+          </li>
+        <li class="layui-nav-item"><a href="/recommend">推荐选课</a></li>
+        <li class="layui-nav-item"><a href="/can">可选课程</a></li>
+        <li class="layui-nav-item"><a href="/courses/rebuild">重修类课程选课</a></li>
+        <li class="layui-nav-item"><a href="/courses/add">发布课程</a></li>
+      </ul>
+    </div>
+  </div>
+   
+  <!-- 此处是内容区域 -->
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;" id="content">
+      <!-- 这里是内容的主体区域 -->
+      {{block 'body-content'}}{{/block}}
+    </div>
+  </div>
+
+
+
+
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    © Online Course Selection System
+  </div>
+</div>
+<script src="/public/layui/layui.js" charset="utf-8"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+});
+</script>
+<!-- 这里可以放置自定义script -->
+{{block 'script'}}{{/block}}
+</body>
+</html>
+
+
+
+
+{{else}}
+<!-- //这里存放没有登录的公共的静态布局页面 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>网上选课系统</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"> 
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  
+  <link rel="stylesheet" href="/public/layui/css/layui.css"  media="all">
+  <script>
+    window.onload = function(){
+      var a = document.querySelectorAll('.test')
+      for(var i=0;i<a.length;i++){
+        a[i].onclick = function(){
+        alert('您还没有登录，请登录后再进行操作');
+      }
+      }
+    }
+  </script>
+  <!-- 这里可以放置自定义样式 -->
+  {{block 'head'}}{{/block}}
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo"><a href="/courses" class="layui-logo">网上选课系统</a></div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-left">
+      <li class="layui-nav-item"><a href="/courses" id="choiceCourse">待选课程</a></li>
+    </ul>
+    <ul class="layui-nav layui-layout-right">
+      {{ if student }}
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="/public/img/图书.png" style="width: 30px; border-radius: 50%;">
+          欢迎你：{{student.name}}
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="">基本资料</a></dd>
+          <dd><a href="">安全中心</a></dd>
+          <dd><a href="/logout">退出</a></dd>
+        </dl>
+      </li> 
+      {{ else }}
+      <li class="layui-nav-item"><a href="/login">登录</a></li>
+      <li class="layui-nav-item"><a href="/register">注册</a></li>
+      {{ /if }}
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item">
+          <a href="javascript:;">校园导航</a>
+          <dl class="layui-nav-child">
+            <dd><a href="http://www.nsu.edu.cn/">校园主页</a></dd>
+            <dd><a href="https://www.szlib.org.cn/">图书馆</a></dd>
+            <dd><a href="https://www.cnki.net/">中国知网</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">课程类别分类选课</a>
+            <dl class="layui-nav-child">
+              <dd><a href="javascript:;" class="test">计算机类</a></dd>
+              <dd><a href="javascript:;" class="test">摄影艺术类</a></dd>
+              <dd><a href="javascript:;" class="test">体育运动类</a></dd>
+              <dd><a href="javascript:;" class="test">科学技术类</a></dd>
+              <dd><a href="javascript:;" class="test">百科知识类</a></dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item">
+            <a href="javascript:;">按照老师分类选课</a>
+            <dl class="layui-nav-child">
+              <dd><a href="javascript:;" class="test">贾老师</a></dd>
+              <dd><a href="javascript:;" class="test">左老师</a></dd>
+              <dd><a href="javascript:;" class="test">月老师</a></dd>
+              <dd><a href="javascript:;" class="test">华老师</a></dd>
+              <dd><a href="javascript:;" class="test">山老师</a></dd>
+              <dd><a href="javascript:;" class="test">李老师</a></dd>
+              <dd><a href="javascript:;" class="test">晓老师</a></dd>
+              <dd><a href="javascript:;" class="test">江老师</a></dd>
+            </dl>
+          </li>
+        <li class="layui-nav-item"><a href="javascript:;" class="test">推荐选课</a></li>
+        <li class="layui-nav-item"><a href="javascript:;" class="test">可选课程</a></li>
+        <li class="layui-nav-item"><a href="javascript:;">重修类课程选课</a></li>
+      </ul>
+    </div>
+  </div>
+   
+  <!-- 此处是内容区域 -->
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;" id="content">
+      <!-- 这里是内容的主体区域 -->
+      {{block 'body-content'}}{{/block}}
+    </div>
+  </div>
+
+
+
+
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    © Online Course Selection System
+  </div>
+</div>
+<script src="/public/layui/layui.js" charset="utf-8"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+});
+</script>
+<!-- 这里可以放置自定义script -->
+{{block 'script'}}{{/block}}
+</body>
+</html>
+
+
+{{/if}}

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
+  <title>网上选课系统</title>
+  <meta name='renderer' content='webkit'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+  <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
+  <meta name='apple-mobile-web-app-status-bar-style' content='black'> 
+  <meta name='apple-mobile-web-app-capable' content='yes'>
+  <meta name='format-detection' content='telephone=no'>
+  
+  <link rel='stylesheet' href='/public/layui/css/layui.css'  media='all'>
+</head>
+<body class='layui-layout-body'>
+<div class='layui-layout layui-layout-admin'>
+  <div class='layui-header'>
+    <div class='layui-logo'><a href='/' class='layui-logo'>网上选课系统</a></div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class='layui-nav layui-layout-left'>
+      <li class='layui-nav-item'><a href='/courses' id='choiceCourse'>待选课程</a></li>
+      <li class='layui-nav-item'><a href=''>选课记录</a></li>
+      <li class='layui-nav-item'>
+        <a href='javascript:;'>其它系统</a>
+        <dl class='layui-nav-child'>
+          <dd><a href=''>课程管理</a></dd>
+          <dd><a href=''>消息管理</a></dd>
+          <dd><a href=''>授权管理</a></dd>
+        </dl>
+      </li>
+    </ul>
+    <ul class='layui-nav layui-layout-right'>
+      {{ if student }}
+      <li class='layui-nav-item'>
+        <a href='javascript:;'>
+          <img src='/public/img/图书.png' style='width: 30px; border-radius: 50%;'>
+          欢迎你：{{student.name}}
+        </a>
+        <dl class='layui-nav-child'>
+          <dd><a href=''>基本资料</a></dd>
+          <dd><a href=''>安全中心</a></dd>
+          <dd><a href='/logout'>退出</a></dd>
+        </dl>
+      </li>
+      {{ else }}
+      <li class='layui-nav-item'><a href='/login'>登录</a></li>
+      <li class='layui-nav-item'><a href='/register'>注册</a></li>
+      {{ /if }}
+    </ul>
+  </div>
+  
+  <div class='layui-side layui-bg-black'>
+    <div class='layui-side-scroll'>
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class='layui-nav layui-nav-tree'  lay-filter='test'>
+        <li class='layui-nav-item'>
+          <a href='javascript:;'>校园导航</a>
+          <dl class='layui-nav-child'>
+            <dd><a href='http://www.nsu.edu.cn/'>校园主页</a></dd>
+            <dd><a href='https://www.szlib.org.cn/'>图书馆</a></dd>
+            <dd><a href='https://www.cnki.net/'>中国知网</a></dd>
+          </dl>
+        </li>
+        <li class='layui-nav-item'>
+            <a href='javascript:;'>课程类别分类选课</a>
+            <dl class='layui-nav-child'>
+              <dd><a href='/courses/computer'>计算机类</a></dd>
+              <dd><a href='/courses/art'>摄影艺术类</a></dd>
+              <dd><a href='/courses/sport'>体育运动类</a></dd>
+              <dd><a href='/courses/scient'>科学技术类</a></dd>
+              <dd><a href='/courses/knowledge'>百科知识类</a></dd>
+            </dl>
+          </li>
+          <li class='layui-nav-item'>
+            <a href='javascript:;'>按照老师分类选课</a>
+            <dl class='layui-nav-child'>
+              <dd><a href='/courses/jia'>贾老师</a></dd>
+              <dd><a href='/courses/zuo'>左老师</a></dd>
+              <dd><a href='/courses/yue'>月老师</a></dd>
+              <dd><a href='/courses/hua'>华老师</a></dd>
+              <dd><a href='/courses/shan'>山老师</a></dd>
+              <dd><a href='/courses/li'>李老师</a></dd>
+              <dd><a href='/courses/xiao'>晓老师</a></dd>
+              <dd><a href='/courses/jiang'>江老师</a></dd>
+            </dl>
+          </li>
+        <li class='layui-nav-item'><a href='/recommend'>推荐选课</a></li>
+        <li class='layui-nav-item'><a href='/can'>可选课程</a></li>
+        <li class='layui-nav-item'><a href='/courses/rebuild'>重修类课程选课</a></li>
+        <li class='layui-nav-item'><a href='/courses/add'>发布课程</a></li>
+      </ul>
+    </div>
+  </div>
+   
+  <!-- 此处是内容区域 -->
+  <div class='layui-body'>
+    <!-- 内容主体区域 -->
+    <div style='padding: 15px;' id='content'>
+      {{if student}}
+      <h1 style='font-weight: bold;'>待选课程</h1>
+      <table class='layui-table' class='layui-hide' id='test'>
+          <colgroup>
+            <col width='150'>
+            <col width='200'>
+            <col>
+          </colgroup>
+          <thead>
+            <tr>
+              <th>课程序号</th>
+              <th>课程名称</th>
+              <th>课程描述</th>
+              <th>授课老师</th>
+              <th>总学时</th>
+              <th>课程类型</th>
+              <th>学分</th>
+              <th>总计名额</th>
+              <th>已选名额</th>
+              <th>可选名额</th>
+              <th>是否选择</th>
+              <!-- <th>是否编辑</th>
+              <th>是否删除</th> -->
+            </tr> 
+          </thead>
+          <tbody>
+            {{each courses}}
+            <tr>
+              <td>{{$index + 1}}</td>
+              <td>{{$value.course_name}}</td>
+              <td>{{$value.course_describe}}</td>
+              <td>{{$value.course_teacher}}</td>
+              <td>{{$value.course_study_time}}</td>
+              <td>{{$value.course_type}}</td>
+              <td>{{$value.course_credit}}</td>
+              <td>{{$value.course_quota}}</td>
+              <td>{{0}}</td>
+              <td>{{$value.course_quota}}</td>
+              <td><button class='layui-btn layui-btn-normal'>选择</button></td>
+              <!-- <td><button class='layui-btn layui-btn-normal'>编辑</button></td>
+              <td><button class='layui-btn layui-btn-normal'>删除</button></td> -->
+              
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        {{else}}
+        <h1 style='font-weight: bold;'>待选课程(登陆后可选)</h1>
+      <table class='layui-table' class='layui-hide' id='test'>
+          <colgroup>
+            <col width='150'>
+            <col width='200'>
+            <col>
+          </colgroup>
+          <thead>
+            <tr>
+              <th>课程序号</th>
+              <th>课程名称</th>
+              <th>课程描述</th>
+              <th>授课老师</th>
+              <th>总学时</th>
+              <th>课程类型</th>
+              <th>学分</th>
+              <th>总计名额</th>
+              <th>已选名额</th>
+              <th>可选名额</th>
+            </tr> 
+          </thead>
+          <tbody>
+            {{each courses}}
+            <tr>
+              <td>{{$index + 1}}</td>
+              <td>{{$value.course_name}}</td>
+              <td>{{$value.course_describe}}</td>
+              <td>{{$value.course_teacher}}</td>
+              <td>{{$value.course_study_time}}</td>
+              <td>{{$value.course_type}}</td>
+              <td>{{$value.course_credit}}</td>
+              <td>{{$value.course_quota}}</td>
+              <td>{{0}}</td>
+              <td>{{$value.course_quota}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        {{/if}}
+    </div>
+  </div>
+
+  
+  <div class='layui-footer'>
+    <!-- 底部固定区域 -->
+    © Online Course Selection System
+  </div>
+</div>
+<script src='/public/layui/layui.js' charset='utf-8'></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+});
+</script>
+<script src='../node_modules/jquery/dist/jquery.js'></script>
+<!-- //此处是开启可分页的表格 -->
+<!-- <script>
+ $(function(){
+    //ajax请求数据库信息显示到表格
+  $.ajax({
+    url:'/courseData',
+    type:'GET',
+    dataType:'json',
+    success:function(data){
+      layui.use('table', function(){
+    var table = layui.table;
+    table.render({
+      elem: '#test'
+      ,data:data
+      ,cols: [[
+        {field:'_id', title: '课程序号', sort: true}
+        ,{field:'course_name', title: '课程名称'}
+        ,{field:'course_describe',title: '课程描述'}
+        ,{field:'course_teacher', title: '授课老师'}
+        ,{field:'course_study_time', title: '总学时', sort: true}
+        ,{field:'course_type', title: '课程类型'}
+        ,{field:'course_credit',  title: '学分', sort: true}
+        ,{field:'course_quota',  title: '总计名额', sort: true}
+        ,{field:'course_quota', title: '可选名额', sort: true}
+      ]]
+      ,page: true
+    });
+  });
+    }
+  })
+ })
+</script> -->
+</body>
+</html>

@@ -1,0 +1,84 @@
+{{extend '../_layouts/home.html'}}
+{{block 'body-content'}}
+{{if student}}
+<h1 style='font-weight: bold;'>晓老师的课程</h1>
+<table class='layui-table' class='layui-hide' id='test'>
+    <colgroup>
+      <col width='150'>
+      <col width='200'>
+      <col>
+    </colgroup>
+    <thead>
+      <tr>
+        <th>课程序号</th>
+        <th>课程名称</th>
+        <th>课程描述</th>
+        <th>授课老师</th>
+        <th>总学时</th>
+        <th>课程类型</th>
+        <th>学分</th>
+        <th>总计名额</th>
+        <th>已选名额</th>
+        <th>可选名额</th>
+        <th>选择操作选项</th>
+      </tr> 
+    </thead>
+    <tbody>
+      {{each courses}}
+      <tr>
+        <td>{{$index + 1}}</td>
+        <td>{{$value.course_name}}</td>
+        <td>{{$value.course_describe}}</td>
+        <td>{{$value.course_teacher}}</td>
+        <td>{{$value.course_study_time}}</td>
+        <td>{{$value.course_type}}</td>
+        <td>{{$value.course_credit}}</td>
+        <td>{{$value.course_quota}}</td>
+        <td>{{0}}</td>
+        <td>{{$value.course_quota}}</td>
+        <td><button class='layui-btn layui-btn-normal'>选择</button></td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{else}}
+  <h1 style='font-weight: bold;'>晓老师的课程(登陆后可选)</h1>
+<table class='layui-table' class='layui-hide' id='test'>
+    <colgroup>
+      <col width='150'>
+      <col width='200'>
+      <col>
+    </colgroup>
+    <thead>
+      <tr>
+        <th>课程序号</th>
+        <th>课程名称</th>
+        <th>课程描述</th>
+        <th>授课老师</th>
+        <th>总学时</th>
+        <th>课程类型</th>
+        <th>学分</th>
+        <th>总计名额</th>
+        <th>已选名额</th>
+        <th>可选名额</th>
+      </tr> 
+    </thead>
+    <tbody>
+      {{each courses}}
+      <tr>
+        <td>{{$index + 1}}</td>
+        <td>{{$value.course_name}}</td>
+        <td>{{$value.course_describe}}</td>
+        <td>{{$value.course_teacher}}</td>
+        <td>{{$value.course_study_time}}</td>
+        <td>{{$value.course_type}}</td>
+        <td>{{$value.course_credit}}</td>
+        <td>{{$value.course_quota}}</td>
+        <td>{{0}}</td>
+        <td>{{$value.course_quota}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{/if}}
+{{/block}}

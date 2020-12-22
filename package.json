@@ -1,0 +1,23 @@
+{
+  "name": "OCSS",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "art-template": "^4.13.2",
+    "blueimp-md5": "^2.18.0",
+    "express": "^4.17.1",
+    "express-art-template": "^1.0.1",
+    "express-session": "^1.17.1",
+    "jquery": "^3.5.1",
+    "layui": "0.0.1",
+    "layui-src": "^2.5.5",
+    "mongoose": "^5.10.15"
+  }
+}

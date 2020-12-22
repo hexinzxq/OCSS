@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+	<title>网上选课系统-登录</title>
+	<!-- Meta tag Keywords -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8" />
+	<meta name="keywords"
+		content="Working Signin form Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	<!-- //Meta tag Keywords -->
+	<link href="//fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap" rel="stylesheet">
+	<!--/Style-CSS -->
+	<link rel="stylesheet" href="/public/css/login.css" type="text/css" media="all" />
+	<!--//Style-CSS -->
+</head>
+
+<body>
+
+	 <!-- form section start -->
+	 <section class="w3l-workinghny-form">
+        <!-- /form -->
+        <div class="workinghny-form-grid">
+            <div class="wrapper">
+                <div class="logo">
+                    <h1><a class="brand-logo" href="index.html"><span>网上选课系统</span> 登录</a></h1>
+                    <!-- if logo is image enable this   
+                        <a class="brand-logo" href="#index.html">
+                            <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
+                        </a> -->
+                </div>
+                <div class="workinghny-block-grid">
+                    <div class="workinghny-left-img align-end">
+                        <img src="/public/img/2.png" class="img-responsive" alt="img" />
+                    </div>
+                    <div class="form-right-inf">
+						
+                        <div class="login-form-content">
+                            <h2>Name and Password:</h2>
+                            <form class="signin-form" id="login_form">
+								<div class="one-frm">
+
+									<label>学号：</label>
+									<input type="text" name="stuId" id="stuId"  placeholder="请输入您的学号" required="">
+								</div>
+								<div class="one-frm">
+									<label>密码：</label>
+									<input type="password" name="password" id="psd"  placeholder="请输入您的密码" required="">
+								</div>
+                                <label class="check-remaind">
+                                    <input type="checkbox" name="remember">
+                                    <span class="checkmark"></span>
+                                    <p class="remember">记住我</p>
+
+                                </label>
+                                <button class="btn btn-style mt-3" type="submit"> 登 录 </button>
+                                <p class="already"> 没有账号? <a href="/register">点击这里去注册</a></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //form -->
+    </section>
+    <!-- //form section start -->
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        $('#login_form').on('submit',function(e){
+            e.preventDefault();
+            var formData =  $(this).serialize();
+            $.ajax({
+                url:'/login',
+                type:'post',
+                data:formData,
+                dataType:'json',
+                success : function(data){
+                    var err_code = data.err_code;
+                    if(err_code === 0){
+                        //此处需要注意服务端重定向对异步请求是无效的
+                        window.location.href = '/courses';
+                    }else if(err_code ===1){
+                        window.alert('studentid or password error!');
+                    }else if(err_code === 500){
+                        window.alert('server is in-use, please wait to try!')
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+    <!-- Title Page-->
+    <title>网上选课系统-注册</title>
+
+    <!-- Icons font CSS-->
+    <link href="/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="/public/css/register.css" rel="stylesheet" media="all">
+</head>
+
+<body>
+    <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-1">
+                <div class="card-body">
+                    <h2 class="title">欢迎注册</h2>
+                    <form method="POST" id="register_form">
+                        <div class="input-group">
+                            <input class="input--style-1" type="text" placeholder="姓名" name="name" id="name" required minlength="2" maxlength="5">
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-1" type="text" placeholder="学号" name="stuId" id="stuId" required minlength="11" maxlength="11">
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-1" type="text" placeholder="班级" name="class" id="class" required>
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-1" type="password" placeholder="密码" name="password" id="password" required minlength="6" maxlength="20">
+                        </div>
+                            <button class="btn btn--radius btn--green" type="submit">提交</button>
+                            已有账号？<a href="/login" style="text-decoration: none; color: rgb(199, 32, 149);">点击登录</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery JS-->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="/vendor/select2/select2.min.js"></script>
+    <script src="/vendor/datepicker/moment.min.js"></script>
+    <script src="/vendor/datepicker/daterangepicker.js"></script>
+
+    <!-- Main JS-->
+    <script src="/public/js/register.js"></script>
+
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        $('#register_form').on('submit',function(event){
+            event.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+                url:'/register',
+                type:'post',
+                data:formData,
+                dataType:'json',
+                success:function(data){
+                    var err_code = data.err_code;
+                    if(err_code === 0 ){
+                        window.alert('注册成功，请登录');
+                        window.location.href = '/login';
+                    }else if(err_code === 1){
+                        window.alert('此学号已经注册了账号')
+                    }else if(err_code === 500){
+                        window.alert('服务器忙，请稍后重试');
+                    }
+                }
+            })
+        })
+    </script>
+
+</body>
+</html>
+<!-- end document-->
