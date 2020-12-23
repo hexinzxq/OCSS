@@ -9,6 +9,8 @@ var session = require('express-session');
 
 //引入登录注册的路由规则
 var lrRouter = require('./routes/lrRouter');
+
+var adminLRouters = require('./routes/adminLRouters');
 //引入课程相关的路由规则
 var courseRouter = require('./routes/courseRouter');
 const cor = require('./routes/courseOperateRouter');
@@ -42,6 +44,8 @@ app.use(session({
 
 //将登录和注册的路由挂载到app中
 app.use(lrRouter);
+//管理员登录的1路由
+app.use(adminLRouters)
 //将与课程相关的路由挂载到app中
 app.use(courseRouter);
 //将与课程操作相关的路由挂载到app中
@@ -61,5 +65,5 @@ app.use(function(err,req,res,next){
 
 //监听一个端口号
 app.listen(3000,function(){
-    console.log('服务器已启动......');
+    console.log('服务器已启动......访问可运行http://127.0.0.1:3000/courses');
 })

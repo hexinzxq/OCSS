@@ -3,7 +3,7 @@
 <html lang="zxx">
 
 <head>
-	<title>网上选课系统-登录</title>
+	<title>网上选课系统-管理员-登录</title>
 	<!-- Meta tag Keywords -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8" />
@@ -24,7 +24,7 @@
         <div class="workinghny-form-grid">
             <div class="wrapper">
                 <div class="logo">
-                    <h1><a class="brand-logo" href="index.html"><span>网上选课系统</span> 登录</a></h1>
+                    <h1><a class="brand-logo" href="index.html"><span>网上选课系统</span><span>-管理员-</span> 登录</a></h1>
                     <!-- if logo is image enable this   
                         <a class="brand-logo" href="#index.html">
                             <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
@@ -41,12 +41,12 @@
                             <form class="signin-form" id="login_form">
 								<div class="one-frm">
 
-									<label>学号：</label>
-									<input type="text" name="stuId" id="stuId"  placeholder="请输入您的学号" required="">
+									<label>管理员账号：</label>
+									<input type="text" name="adminId" id="adminId"  placeholder="请输入您的学号" required="true">
 								</div>
 								<div class="one-frm">
 									<label>密码：</label>
-									<input type="password" name="password" id="psd"  placeholder="请输入您的密码" required="">
+									<input type="password" name="adminPassword" id="psd"  placeholder="请输入您的密码" required="true">
 								</div>
                                 <label class="check-remaind">
                                     <input type="checkbox" name="remember">
@@ -55,7 +55,7 @@
 
                                 </label>
                                 <button class="btn btn-style mt-3" type="submit"> 登 录 </button>
-                                <p class="already"> 没有账号? <a href="/register">点击这里去注册</a></p>
+                                <p class="already"> 没有账号? <a href="/adminRegister">点击这里去注册</a></p>
                             </form>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
             e.preventDefault();
             var formData =  $(this).serialize();
             $.ajax({
-                url:'/login',
+                url:'/adminLogin',
                 type:'post',
                 data:formData,
                 dataType:'json',
@@ -79,9 +79,9 @@
                     var err_code = data.err_code;
                     if(err_code === 0){
                         //此处需要注意服务端重定向对异步请求是无效的
-                        window.location.href = '/courses';
+                        window.location.href = '/admincourses';
                     }else if(err_code ===1){
-                        window.alert('您输入的学号或密码存在错误，请重新输入');
+                        window.alert('您输入的账号或密码存在错误，请重新输入');
                     }else if(err_code === 500){
                         window.alert('server is in-use, please wait to try!')
                     }
