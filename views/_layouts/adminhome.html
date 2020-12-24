@@ -1,4 +1,4 @@
-{{if student}}
+{{if admin}}
 <!-- //这里存放登录过后公共的静态布局页面 -->
 <!DOCTYPE html>
 <html>
@@ -23,20 +23,20 @@
     <div class="layui-logo"><a href="javascript:;" class="layui-logo">网上选课系统</a></div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
-      <li class="layui-nav-item"><a href="/courses" id="choiceCourse">待选课程</a></li>
+      <li class="layui-nav-item"><a href="/admincourses" id="choiceCourse">待选课程操作</a></li>
       <li class="layui-nav-item"><a href="">选课记录</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right">
-      {{ if student }}
+      {{ if admin }}
       <li class="layui-nav-item">
         <a href="javascript:;">
           <img src="/public/img/图书.png" style="width: 30px; border-radius: 50%;">
-          欢迎你：{{student.name}}
+          欢迎你：{{admin.adminName}}
         </a>
         <dl class="layui-nav-child">
           <dd><a href="">基本资料</a></dd>
           <dd><a href="">安全中心</a></dd>
-          <dd><a href="/logout">退出</a></dd>
+          <dd><a href="/adminLogout">退出</a></dd>
         </dl>
       </li>
       {{ else }}
@@ -58,33 +58,9 @@
             <dd><a href="https://www.cnki.net/">中国知网</a></dd>
           </dl>
         </li>
-        <li class="layui-nav-item">
-            <a href="javascript:;">课程类别分类选课</a>
-            <dl class="layui-nav-child">
-              <dd><a href='/courses/computer'>计算机类</a></dd>
-              <dd><a href='/courses/art'>摄影艺术类</a></dd>
-              <dd><a href='/courses/sport'>体育运动类</a></dd>
-              <dd><a href='/courses/scient'>科学技术类</a></dd>
-              <dd><a href='/courses/knowledge'>百科知识类</a></dd>
-            </dl>
-          </li>
-          <li class="layui-nav-item">
-            <a href="javascript:;">按照老师分类选课</a>
-            <dl class="layui-nav-child">
-              <dd><a href='/courses/jia'>贾老师</a></dd>
-              <dd><a href='/courses/zuo'>左老师</a></dd>
-              <dd><a href='/courses/yue'>月老师</a></dd>
-              <dd><a href='/courses/hua'>华老师</a></dd>
-              <dd><a href='/courses/shan'>山老师</a></dd>
-              <dd><a href='/courses/li'>李老师</a></dd>
-              <dd><a href='/courses/xiao'>晓老师</a></dd>
-              <dd><a href='/courses/jiang'>江老师</a></dd>
-            </dl>
-          </li>
-        <li class="layui-nav-item"><a href="/recommend">推荐选课</a></li>
-        <li class="layui-nav-item"><a href="/can">可选课程</a></li>
-        <li class="layui-nav-item"><a href="/courses/rebuild">重修类课程选课</a></li>
-        <!-- <li class="layui-nav-item"><a href="/courses/add">发布课程</a></li> -->
+        <li class="layui-nav-item"><a href="/courses/add">发布课程</a></li>
+        <li class="layui-nav-item"><a href="/student">查看学生信息</a></li>
+        <li class="layui-nav-item"><a href="javascript:;  ">查看学生选课信息</a></li>
       </ul>
     </div>
   </div>
@@ -124,7 +100,7 @@ layui.use('element', function(){
 
 
 {{else}}
-<!-- //这里存放没有登录的公共的静态布局页面 -->
+<!-- //这里存放登录过后公共的静态布局页面 -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -139,16 +115,6 @@ layui.use('element', function(){
   <meta name="format-detection" content="telephone=no">
   
   <link rel="stylesheet" href="/public/layui/css/layui.css"  media="all">
-  <script>
-    window.onload = function(){
-      var a = document.querySelectorAll('.test')
-      for(var i=0;i<a.length;i++){
-        a[i].onclick = function(){
-        alert('您还没有登录，请登录后再进行操作');
-      }
-      }
-    }
-  </script>
   <!-- 这里可以放置自定义样式 -->
   {{block 'head'}}{{/block}}
 </head>
@@ -158,21 +124,22 @@ layui.use('element', function(){
     <div class="layui-logo"><a href="javascript:;" class="layui-logo">网上选课系统</a></div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
-      <li class="layui-nav-item"><a href="/courses" id="choiceCourse">待选课程</a></li>
+      <li class="layui-nav-item"><a href="/admincourses" id="choiceCourse">待选课程操作</a></li>
+      <li class="layui-nav-item"><a href="">学生选课记录查看</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right">
-      {{ if student }}
+      {{ if admin }}
       <li class="layui-nav-item">
         <a href="javascript:;">
           <img src="/public/img/图书.png" style="width: 30px; border-radius: 50%;">
-          欢迎你：{{student.name}}
+          欢迎你：{{admin.adminName}}
         </a>
         <dl class="layui-nav-child">
           <dd><a href="">基本资料</a></dd>
           <dd><a href="">安全中心</a></dd>
           <dd><a href="/logout">退出</a></dd>
         </dl>
-      </li> 
+      </li>
       {{ else }}
       <li class="layui-nav-item"><a href="/login">登录</a></li>
       <li class="layui-nav-item"><a href="/register">注册</a></li>
@@ -192,6 +159,9 @@ layui.use('element', function(){
             <dd><a href="https://www.cnki.net/">中国知网</a></dd>
           </dl>
         </li>
+        <li class="layui-nav-item"><a href="/courses/add">发布课程</a></li>
+        <li class='layui-nav-item' id="publishCourse"><a href='javascript:;'>查看学生信息</a></li>
+        <li class='layui-nav-item' id="publishCourse"><a href='javascript:;'>查看学生选课信息</a></li>
       </ul>
     </div>
   </div>

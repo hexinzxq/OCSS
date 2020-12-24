@@ -16,10 +16,10 @@
 <body class='layui-layout-body'>
 <div class='layui-layout layui-layout-admin'>
   <div class='layui-header'>
-    <div class='layui-logo'><a href='/' class='layui-logo'>网上选课系统</a></div>
+    <div class='layui-logo'><a href='javascript:;' class='layui-logo'>网上选课系统</a></div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class='layui-nav layui-layout-left'>
-      <li class='layui-nav-item'><a href='/courses' id='choiceCourse'>待选课程</a></li>
+      <li class='layui-nav-item'><a href='/admincourses' id='choiceCourse'>待选课程</a></li>
       <li class='layui-nav-item'><a href=''>选课记录</a></li>
       <li class='layui-nav-item'>
         <a href='javascript:;'>其它系统</a>
@@ -35,7 +35,7 @@
       <li class='layui-nav-item'>
         <a href='javascript:;'>
           <img src='/public/img/图书.png' style='width: 30px; border-radius: 50%;'>
-          欢迎你：{{admin.adminName}}
+          欢迎你：管理员-{{admin.adminName}}
         </a>
         <dl class='layui-nav-child'>
           <dd><a href=''>基本资料</a></dd>
@@ -62,7 +62,13 @@
             <dd><a href='https://www.cnki.net/'>中国知网</a></dd>
           </dl>
         </li>
-        <li class='layui-nav-item'><a href='/courses/add'>发布课程</a></li>
+        {{if admin}}
+        <li class='layui-nav-item' id="publishCourse"><a href='/courses/add'>发布课程</a></li>
+        <li class='layui-nav-item' id="publishCourse"><a href='/student'>查看学生信息</a></li>
+        <li class='layui-nav-item' id="publishCourse"><a href='javascript:;'>查看学生选课信息</a></li>
+        {{else}}
+
+        {{/if}}
       </ul>
     </div>
   </div>
@@ -72,7 +78,7 @@
     <!-- 内容主体区域 -->
     <div style='padding: 15px;' id='content'>
       {{if admin}}
-      <h1 style='font-weight: bold;'>待选课程</h1>
+      <h1 style='font-weight: bold;'>待选课程操作</h1>
       <table class='layui-table' class='layui-hide' id='test'>
           <colgroup>
             <col width='150'>
@@ -91,16 +97,15 @@
               <th>总计名额</th>
               <th>已选名额</th>
               <th>可选名额</th>
-              <th>是否选择</th>
               <th>是否编辑</th>
               <th>是否删除</th>
             </tr> 
           </thead>
           <tbody>
             {{each courses}}
-            <tr>
-              <td>{{$index + 1}}</td>
-              <td>{{$value.course_name}}</td>
+            <tr id="codelete">
+              <td id="index">{{$index + 1}}</td>
+              <td id="coursename">{{$value.course_name}}</td>
               <td>{{$value.course_describe}}</td>
               <td>{{$value.course_teacher}}</td>
               <td>{{$value.course_study_time}}</td>
@@ -109,16 +114,15 @@
               <td>{{$value.course_quota}}</td>
               <td>{{0}}</td>
               <td>{{$value.course_quota}}</td>
-              <td><button class='layui-btn layui-btn-normal'>选择</button></td>
-              <td><button class='layui-btn layui-btn-normal'>编辑</button></td>
-              <td><button class='layui-btn layui-btn-normal'>删除</button></td>
+              <td><a href="/courses/edit"><button class='layui-btn layui-btn-normal'>编辑</button></a></td>
+              <td><a href="/courses/delete?course_name={{$value.course_name}}"><button id="delete" class='layui-btn layui-btn-normal'>删除</button></a></td>
               
             </tr>
             {{/each}}
           </tbody>
         </table>
         {{else}}
-        <h1 style='font-weight: bold;'>待选课程(登陆后可修改)</h1>
+        <h1 style='font-weight: bold;'>待选课程(登录后可修改)</h1>
       <table class='layui-table' class='layui-hide' id='test'>
           <colgroup>
             <col width='150'>
@@ -174,5 +178,20 @@ layui.use('element', function(){
 });
 </script>
 <script src='../node_modules/jquery/dist/jquery.js'></script>
+<!-- <script>
+  $(function(){
+    $('#delete').on('click',function(){
+      console.log($('#coursename').html());
+      $.ajax({
+        url:'/courses/delete',
+        type:'get',
+        data:{
+          course_name:$('#coursename').html()
+        },
+        success:function(){}
+      })
+    })
+  })
+</script> -->
 </body>
 </html>

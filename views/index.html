@@ -16,10 +16,11 @@
 <body class='layui-layout-body'>
 <div class='layui-layout layui-layout-admin'>
   <div class='layui-header'>
-    <div class='layui-logo'><a href='/' class='layui-logo'>网上选课系统</a></div>
+    <div class='layui-logo'><a href='javascript:;' class='layui-logo'>网上选课系统</a></div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class='layui-nav layui-layout-left'>
-      <li class='layui-nav-item'><a href='/courses' id='choiceCourse'>待选课程</a></li>
+      <li class='layui-nav-item'><a href='/courses' id='choiceCourse'>待选课程查看</a></li>
+      {{if student}}
       <li class='layui-nav-item'><a href=''>选课记录</a></li>
       <li class='layui-nav-item'>
         <a href='javascript:;'>其它系统</a>
@@ -29,6 +30,9 @@
           <dd><a href=''>授权管理</a></dd>
         </dl>
       </li>
+      {{else}}
+
+      {{/if}}
     </ul>
     <ul class='layui-nav layui-layout-right'>
       {{ if student }}
@@ -52,6 +56,7 @@
   
   <div class='layui-side layui-bg-black'>
     <div class='layui-side-scroll'>
+      {{if student}}
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class='layui-nav layui-nav-tree'  lay-filter='test'>
         <li class='layui-nav-item'>
@@ -88,8 +93,19 @@
         <li class='layui-nav-item'><a href='/recommend'>推荐选课</a></li>
         <li class='layui-nav-item'><a href='/can'>可选课程</a></li>
         <li class='layui-nav-item'><a href='/courses/rebuild'>重修类课程选课</a></li>
-        <li class='layui-nav-item'><a href='/courses/add'>发布课程</a></li>
       </ul>
+      {{else}}
+      <ul class='layui-nav layui-nav-tree'  lay-filter='test'>
+        <li class='layui-nav-item'>
+          <a href='javascript:;'>校园导航</a>
+          <dl class='layui-nav-child'>
+            <dd><a href='http://www.nsu.edu.cn/'>校园主页</a></dd>
+            <dd><a href='https://www.szlib.org.cn/'>图书馆</a></dd>
+            <dd><a href='https://www.cnki.net/'>中国知网</a></dd>
+          </dl>
+        </li>
+        </ul>
+      {{/if}}
     </div>
   </div>
    
@@ -118,8 +134,6 @@
               <th>已选名额</th>
               <th>可选名额</th>
               <th>是否选择</th>
-              <th>是否编辑</th>
-              <th>是否删除</th>
             </tr> 
           </thead>
           <tbody>
@@ -136,8 +150,6 @@
               <td>{{0}}</td>
               <td>{{$value.course_quota}}</td>
               <td><button class='layui-btn layui-btn-normal'>选择</button></td>
-              <td><button class='layui-btn layui-btn-normal'><a href="/courses/edit">编辑</a></button></td>
-              <td><button class='layui-btn layui-btn-normal'>删除</button></td>
               
             </tr>
             {{/each}}

@@ -1,71 +1,77 @@
-{{extend '../_layouts/home.html'}}
+{{extend '../_layouts/adminhome.html'}}
 {{block 'body-content'}}
+<h1 style='font-weight: bold;'>编辑课程信息</h1>
 <form class="layui-form" action="/courses/edit" method="post">
-     <!-- 
-                用来放一些不希望被用户看见，但是需要被提交到服务端的数据
-             -->
-             <input type="hidden" value="{{course.id}}" name="id">
-    <div class="layui-form-item">
-      <label class="layui-form-label">课程名称</label>
-      <div class="layui-input-block">
-        <input type="text" id="" name="course_name" lay-verify="required"  placeholder="请输入" autocomplete="off" class="layui-input">
-      </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">课程名称</label>
+    <div class="layui-input-block">
+      <input type="text" id="" name="course_name" lay-verify="required" placeholder="请输入" autocomplete="off"
+        class="layui-input">
     </div>
-    
-    <div class="layui-form-item">
-        <label class="layui-form-label">课程描述</label>
-        <div class="layui-input-block">
-          <input type="text" id="" name="course_describe" lay-verify="required"  placeholder="请输入" autocomplete="off" class="layui-input">
-        </div>
-      </div>
+  </div>
 
-      <div class="layui-form-item">
-        <label class="layui-form-label">授课老师</label>
-        <div class="layui-input-block">
-          <input type="text" id="" name="course_teacher" lay-verify="required"  placeholder="请输入" autocomplete="off" class="layui-input">
-        </div>
-      </div>
-
-      <div class="layui-form-item">
-        <label class="layui-form-label">总学时</label>
-        <div class="layui-input-block">
-          <input type="text" id="" name="course_study_time" lay-verify="required"  placeholder="请输入" autocomplete="off" class="layui-input">
-        </div>
-      </div>
-
-      <div class="layui-form-item">
-        <label class="layui-form-label">课程类型</label>
-        <div class="layui-input-block">
-          <input type="text" id="" name="course_type" lay-verify="required"  placeholder="请输入" autocomplete="off" class="layui-input">
-        </div>
-      </div>
-
-      <div class="layui-form-item">
-        <label class="layui-form-label">开始时间</label>
-        <div class="layui-input-block">
-          <input type="text" id="" name="course_start_time" lay-verify="required"  placeholder="请输入" autocomplete="off" class="layui-input">
-        </div>
-      </div>
-
-      <div class="layui-form-item">
-        <label class="layui-form-label">学分</label>
-        <div class="layui-input-block">
-          <input type="text" id="" name="course_credit" lay-verify="required"  placeholder="请输入" autocomplete="off" class="layui-input">
-        </div>
-      </div>
-
-      <div class="layui-form-item">
-        <label class="layui-form-label">总计名额</label>
-        <div class="layui-input-block">
-          <input type="text" id="" name="course_quota" lay-verify="required"  placeholder="请输入" autocomplete="off" class="layui-input">
-        </div>
-      </div>
-
-    <div class="layui-form-item">
-      <div class="layui-input-block">
-        <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
-        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-      </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">课程描述</label>
+    <div class="layui-input-block">
+      <input type="text" id="" name="course_describe" lay-verify="required" placeholder="请输入" autocomplete="off"
+        class="layui-input">
     </div>
-  </form>
+  </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">授课老师</label>
+    <div class="layui-input-block">
+      <input type="text" id="" name="course_teacher" lay-verify="required" placeholder="请输入" autocomplete="off"
+        class="layui-input">
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">总学时</label>
+    <div class="layui-input-block">
+      <input type="text" id="" name="course_study_time" lay-verify="required" placeholder="请输入" autocomplete="off"
+        class="layui-input">
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">课程类型</label>
+    <div class="layui-input-block">
+      <input type="text" id="" name="course_type" lay-verify="required" placeholder="请输入" autocomplete="off"
+        class="layui-input">
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">开始时间</label>
+    <div class="layui-input-block">
+      <input type="text" id="" name="course_start_time" lay-verify="required" placeholder="请输入" autocomplete="off"
+        class="layui-input">
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">学分</label>
+    <div class="layui-input-block">
+      <input type="text" id="" name="course_credit" lay-verify="required" placeholder="请输入" autocomplete="off"
+        class="layui-input">
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">总计名额</label>
+    <div class="layui-input-block">
+      <input type="text" id="" name="course_quota" lay-verify="required" placeholder="请输入" autocomplete="off"
+        class="layui-input">
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
 {{/block}}

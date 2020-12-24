@@ -1,0 +1,70 @@
+{{extend '../_layouts/adminhome.html'}}
+{{block 'body-content'}}
+{{if admin}}
+<h1 style='font-weight: bold;'>查看学生信息</h1>
+<table class='layui-table' class='layui-hide' id='test'>
+    <colgroup>
+      <col width='150'>
+      <col width='200'>
+      <col>
+    </colgroup>
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th>学生姓名</th>
+        <th>学生性别</th>
+        <th>学生年龄</th>
+        <th>学生学号</th>
+        <th>所在班级</th>
+        <th>所在科系</th>
+      </tr> 
+    </thead>
+    <tbody>
+      {{each student}}
+      <tr>
+        <td>{{$index + 1}}</td>
+        <td>{{$value.name}}</td>
+        <td>{{$value.gender}}</td>
+        <td>{{$value.age}}</td>
+        <td>{{$value.stuId}}</td>
+        <td>{{$value.class}}</td>
+        <td>{{$value.department}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{else}}
+  <h1 style='font-weight: bold;'>可选课程(登陆后可选)</h1>
+<table class='layui-table' class='layui-hide' id='test'>
+    <colgroup>
+      <col width='150'>
+      <col width='200'>
+      <col>
+    </colgroup>
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th>学生姓名</th>
+        <th>学生性别</th>
+        <th>学生年龄</th>
+        <th>学生学号</th>
+        <th>所在班级</th>
+        <th>所在科系</th>
+      </tr> 
+    </thead>
+    <tbody>
+      {{each student}}
+      <tr>
+        <td>{{$index + 1}}</td>
+        <td>{{$value.name}}</td>
+        <td>{{$value.gender}}</td>
+        <td>{{$value.age}}</td>
+        <td>{{$value.stuId}}</td>
+        <td>{{$value.class}}</td>
+        <td>{{$value.department}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{/if}}
+{{/block}}

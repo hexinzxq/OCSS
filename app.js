@@ -13,6 +13,7 @@ var lrRouter = require('./routes/lrRouter');
 var adminLRouters = require('./routes/adminLRouters');
 //引入课程相关的路由规则
 var courseRouter = require('./routes/courseRouter');
+var studentRouter = require('./routes/student')
 const cor = require('./routes/courseOperateRouter');
 //引入增删改查路由规则
 var crudRouter = require('./routes/crud')
@@ -52,6 +53,8 @@ app.use(courseRouter);
 app.use(cor);
 //将增删改查相关的路由挂载到app中
 app.use(crudRouter);
+// 学生相关的路由
+app.use(studentRouter)
 
 //配置404处理中间件
 app.use(function(req,res){
